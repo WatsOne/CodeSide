@@ -1,16 +1,14 @@
 package alg
 
 import Debug
-import model.ColorFloat
-import model.CustomData
-import model.Vec2Float
+import model.*
 import kotlin.math.abs
 
 @Suppress("DuplicatedCode")
-class LineTransformer {
+class LineTracer {
 
     //Алгоритм Брезенхэма
-    fun drawLine(debug: Debug, x1: Int, y1: Int, x2: Int, y2: Int) {
+    fun canTrace(game: Game, x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
         var d = 0
         val dy = abs(y2 - y1)
         val dx = abs(x2 - x1)
@@ -23,7 +21,10 @@ class LineTransformer {
 
         if (dy <= dx) {
             while (true) {
-                debug.draw(CustomData.Rect(Vec2Float(xx.toFloat(), yy.toFloat()), Vec2Float(1f, 1f), ColorFloat(1.0f, 0f, 0f, 1.0f)))
+                //debug.draw(CustomData.Rect(Vec2Float(xx.toFloat(), yy.toFloat()), Vec2Float(1f, 1f), ColorFloat(1.0f, 0f, 0f, 1.0f)))
+                if (game.level.tiles[xx][yy] == Tile.WALL) {
+                    return false
+                }
                 if (xx == x2) break
                 xx += ix
                 d  += dy2
@@ -35,7 +36,10 @@ class LineTransformer {
         }
         else {
             while (true) {
-                debug.draw(CustomData.Rect(Vec2Float(xx.toFloat(), yy.toFloat()), Vec2Float(1f,1f), ColorFloat(1.0f, 0f, 0f, 1.0f)))
+                //debug.draw(CustomData.Rect(Vec2Float(xx.toFloat(), yy.toFloat()), Vec2Float(1f,1f), ColorFloat(1.0f, 0f, 0f, 1.0f)))
+                if (game.level.tiles[xx][yy] == Tile.WALL) {
+                    return false
+                }
                 if (yy == y2) break
                 yy += iy
                 d  += dx2
@@ -45,5 +49,7 @@ class LineTransformer {
                 }
             }
         }
+
+        return true
     }
 }

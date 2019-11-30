@@ -1,9 +1,9 @@
-import alg.Predictor
+import alg.AreaSearcher
 import model.*
 
 class MyStrategy {
 
-    val predictor = Predictor()
+    val predictor = AreaSearcher()
 
     fun getAction(unit: model.Unit, game: Game, debug: Debug): UnitAction {
         var nearestEnemy: model.Unit? = null
