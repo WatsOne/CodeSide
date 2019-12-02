@@ -33,6 +33,7 @@ internal constructor(host: String, port: Int, token: String) {
             val actions = HashMap<Int, model.UnitAction>()
             for (unit in playerView.game.units) {
                 if (unit.playerId == playerView.myId) {
+                    myStrategy.simulate(unit, playerView.game, debug)
                     actions[unit.id] = myStrategy.getAction(unit, playerView.game, debug)
                 }
             }
